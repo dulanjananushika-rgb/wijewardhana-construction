@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { company } from "@/config/company";
+import { useLanguage } from "@/config/language";
 import styles from "./floating-contact.module.css";
 
 export function FloatingContact() {
+  const { language, messages } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [contactIsInView, setContactIsInView] = useState(false);
 
@@ -42,8 +44,10 @@ export function FloatingContact() {
       href={company.contact.whatsapp}
       target="_blank"
       rel="noreferrer"
-      aria-label={`Chat with ${company.name} on WhatsApp at ${company.contact.phone ?? "the configured number"}`}
-      title="Chat on WhatsApp"
+      aria-label={language === "si"
+        ? `${company.name} සමඟ WhatsApp හරහා කතා කරන්න. දුරකථන අංකය ${company.contact.phone ?? "සකස් කළ අංකය"}`
+        : `Chat with ${company.name} on WhatsApp at ${company.contact.phone ?? "the configured number"}`}
+      title={messages.common.whatsapp}
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
     >

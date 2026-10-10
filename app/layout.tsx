@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import { Manrope, Noto_Sans_Sinhala, Space_Grotesk } from "next/font/google";
+import { LanguageProvider } from "@/config/language";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -11,6 +12,12 @@ const manrope = Manrope({
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const notoSansSinhala = Noto_Sans_Sinhala({
+  variable: "--font-sinhala",
+  subsets: ["sinhala"],
   display: "swap",
 });
 
@@ -34,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${spaceGrotesk.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={`${manrope.variable} ${spaceGrotesk.variable} ${notoSansSinhala.variable}`}>
+      <body><LanguageProvider>{children}</LanguageProvider></body>
     </html>
   );
 }

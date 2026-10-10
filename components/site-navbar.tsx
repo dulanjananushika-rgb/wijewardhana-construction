@@ -2,16 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { company } from "@/config/company";
-
-const navigationItems = [
-  { label: "Overview", href: "#overview" },
-  { label: "The build", href: "#construction-story" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Principles", href: "#principles" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/config/language";
 
 function BrandMark() {
   return (
@@ -41,6 +32,16 @@ function MenuIcon({ open }: { open: boolean }) {
 }
 
 export function SiteNavbar() {
+  const { language, messages, setLanguage } = useLanguage();
+  const navigationItems = [
+    { label: messages.nav.overview, href: "#overview" },
+    { label: messages.nav.build, href: "#construction-story" },
+    { label: messages.nav.about, href: "#about" },
+    { label: messages.nav.services, href: "#services" },
+    { label: messages.nav.process, href: "#process" },
+    { label: messages.nav.principles, href: "#principles" },
+    { label: messages.nav.contact, href: "#contact" },
+  ];
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeHref, setActiveHref] = useState("#overview");
@@ -102,7 +103,7 @@ export function SiteNavbar() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className={`site-navbar${isScrolled ? " is-scrolled" : ""}`}>
+    <header className={`site-navbar${isScrolled ? " is-scrolled" : ""}`} lang={language}>
       <a className="site-brand" href="#top" onClick={closeMenu} aria-label={company.name}>
         <BrandMark />
         <span className="brand-name">
@@ -111,7 +112,7 @@ export function SiteNavbar() {
         </span>
       </a>
 
-      <nav className="desktop-navigation" aria-label="Primary navigation">
+      <nav className="desktop-navigation" aria-label={messages.nav.primary}>
         {navigationItems.map((item) => (
           <a
             key={item.href}
@@ -124,26 +125,38 @@ export function SiteNavbar() {
         ))}
       </nav>
 
+      <div className="navbar-tools">
+        <div className="language-switcher" role="group" aria-label={messages.language.label}>
+          <button type="button" aria-label={messages.language.english} aria-pressed={language === "en"} onClick={() => setLanguage("en")}>
+            EN
+          </button>
+          <span aria-hidden="true">/</span>
+          <button type="button" lang="si" aria-label={messages.language.sinhala} aria-pressed={language === "si"} onClick={() => setLanguage("si")}>
+            සිං
+          </button>
+        </div>
+
       <button
         ref={menuButtonRef}
         className="menu-toggle"
         type="button"
-        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-label={menuOpen ? messages.nav.close : messages.nav.open}
         aria-controls="mobile-navigation"
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
       >
         <MenuIcon open={menuOpen} />
       </button>
+      </div>
 
       <nav
         id="mobile-navigation"
         className="mobile-navigation"
-        aria-label="Mobile navigation"
+        aria-label={messages.nav.mobile}
         data-open={menuOpen}
         inert={!menuOpen}
       >
-        <span className="mobile-nav-label">EXPLORE</span>
+        <span className="mobile-nav-label">{messages.nav.explore}</span>
         {navigationItems.map((item) => (
           <a
             key={item.href}

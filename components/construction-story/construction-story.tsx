@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { constructionStory } from "@/config/construction-story";
+import { useLanguage } from "@/config/language";
 import styles from "./construction-story.module.css";
 
 const ConstructionScene = dynamic(
@@ -14,6 +15,17 @@ const ConstructionScene = dynamic(
 );
 
 export function ConstructionStory() {
+  const { language, messages } = useLanguage();
+  const text = messages.story;
+  const localizedStages = [
+    { label: text.planningLabel, title: text.planningTitle, description: text.planningDescription },
+    { label: text.foundationLabel, title: text.foundationTitle, description: text.foundationDescription },
+    { label: text.structureLabel, title: text.structureTitle, description: text.structureDescription },
+    { label: text.wallsLabel, title: text.wallsTitle, description: text.wallsDescription },
+    { label: text.roofLabel, title: text.roofTitle, description: text.roofDescription },
+    { label: text.finishesLabel, title: text.finishesTitle, description: text.finishesDescription },
+    { label: text.residenceLabel, title: text.residenceTitle, description: text.residenceDescription },
+  ];
   const sectionRef = useRef<HTMLElement>(null);
   const stageRefs = useRef<Array<HTMLElement | null>>([]);
   const [activeStage, setActiveStage] = useState(0);
@@ -85,61 +97,67 @@ export function ConstructionStory() {
       className={styles.story}
       id="construction-story"
       aria-labelledby="story-title"
+      lang={language}
     >
       <div className={styles.inner}>
         <div className={styles.topline}>
-          <p className={styles.eyebrow}><span>02</span> / THE CONSTRUCTION STORY</p>
-          <span className={styles.toplineNote}>{constructionStory.label}</span>
+          <p className={styles.eyebrow}><span>02</span> / {text.eyebrow}</p>
+          <span className={styles.toplineNote}>{text.label}</span>
         </div>
 
         <header className={styles.intro}>
           <h2 className={styles.title} id="story-title">
-            A home takes <em>shape.</em>
+            {text.titleStart} <em>{text.titleAccent}</em>
           </h2>
           <div className={styles.introCopy}>
-            <p className={styles.description}>{constructionStory.introduction}</p>
-            <span className={styles.scrollPrompt}>{constructionStory.scrollCue}<i aria-hidden="true">↓</i></span>
+            <p className={styles.description}>{text.intro}</p>
+            <span className={styles.scrollPrompt}>{text.scroll}<i aria-hidden="true">↓</i></span>
           </div>
         </header>
 
         <div className={styles.storyGrid}>
-          <aside className={styles.sceneColumn} aria-label="Interactive house concept model">
+          <aside className={styles.sceneColumn} aria-label={text.scene}>
             <div className={styles.sceneFrame}>
               <div className={styles.sceneTopline} aria-hidden="true">
-                <span>WIJEWARDHANA / STUDY 01</span>
+                <span>{text.study}</span>
                 <span>{currentStage.number} — 06</span>
               </div>
               <div className={styles.sceneViewport}>
                 {shouldLoadScene ? (
-                  <ConstructionScene activeStage={activeStage} reducedMotion={reducedMotion} />
+                  <ConstructionScene
+                    activeStage={activeStage}
+                    reducedMotion={reducedMotion}
+                    fallbackLabel={text.sceneFallback}
+                    sceneLabel={text.scene3d}
+                  />
                 ) : (
                   <div className={styles.sceneLoading} aria-hidden="true" />
                 )}
               </div>
-              <div className={styles.sceneReadout} aria-live="polite">
+              <div className={styles.sceneReadout} aria-live="polite" lang={language}>
                 <span className={styles.readoutNumber}>{currentStage.number}</span>
                 <span className={styles.readoutCopy}>
-                  <span>{currentStage.label}</span>
-                  <span>{currentStage.title}</span>
+                  <span>{localizedStages[activeStage].label}</span>
+                  <span>{localizedStages[activeStage].title}</span>
                 </span>
-                <span className={styles.readoutType}>CONCEPT MODEL</span>
+                <span className={styles.readoutType}>{text.concept}</span>
               </div>
               <div
                 className={styles.progressTrack}
                 role="progressbar"
-                aria-label="House construction stages"
+                aria-label={text.progress}
                 aria-valuemin={0}
                 aria-valuemax={6}
                 aria-valuenow={activeStage}
-                aria-valuetext={`Stage ${currentStage.number}: ${currentStage.label}`}
+                aria-valuetext={text.stage.replace("{number}", currentStage.number).replace("{label}", localizedStages[activeStage].label)}
               >
                 <span style={{ transform: `scaleX(${activeStage / 6})` }} />
               </div>
             </div>
-            <p className={styles.disclosure}>{constructionStory.disclosure}</p>
+          <p className={styles.disclosure}>{text.disclosure}</p>
           </aside>
 
-          <div className={styles.stages} aria-label="Construction stages">
+          <div className={styles.stages} aria-label={text.stages}>
             {constructionStory.stages.map((stage, index) => (
               <article
                 className={styles.stage}
@@ -150,10 +168,10 @@ export function ConstructionStory() {
               >
                 <p className={styles.stageKicker}>
                   <span>{stage.number}</span>
-                  <span>{stage.label}</span>
+                  <span>{localizedStages[index].label}</span>
                 </p>
-                <h3>{stage.title}</h3>
-                <p className={styles.stageDescription}>{stage.description}</p>
+                <h3>{localizedStages[index].title}</h3>
+                <p className={styles.stageDescription}>{localizedStages[index].description}</p>
                 <span className={styles.stageMarker} aria-hidden="true">↘</span>
               </article>
             ))}

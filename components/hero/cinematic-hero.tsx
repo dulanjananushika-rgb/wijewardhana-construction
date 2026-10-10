@@ -2,11 +2,13 @@
 
 import { useRef, useState } from "react";
 import { company } from "@/config/company";
-import { heroContent, heroMedia } from "@/config/hero";
+import { useLanguage } from "@/config/language";
+import { heroMedia } from "@/config/hero";
 import { HeroMedia } from "./hero-media";
 import styles from "./hero.module.css";
 
 export function CinematicHero() {
+  const { language, messages } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [activeFilmIndex, setActiveFilmIndex] = useState(0);
   const activeFilm = heroMedia.films[activeFilmIndex];
@@ -19,22 +21,22 @@ export function CinematicHero() {
   };
 
   return (
-    <section className={styles.hero} id="overview" aria-labelledby="hero-title">
+    <section className={styles.hero} id="overview" aria-labelledby="hero-title" lang={language}>
       <div className={styles.heroInner}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
             <span className={styles.eyebrowMark} aria-hidden="true" />
-            <span>{heroContent.eyebrow}</span>
-            <span className={styles.location}>{company.location.toUpperCase()}</span>
+            <span>{messages.hero.eyebrow}</span>
+            <span className={styles.location}>{language === "si" ? "කුරුණෑගල, ශ්‍රී ලංකාව" : company.location.toUpperCase()}</span>
           </p>
 
           <h1 className={styles.title} id="hero-title">
-            <span>FROM FOUNDATION.</span>
-            <span>TO YOUR</span>
-            <span className={styles.titleHome}>DREAM HOME.</span>
+            <span>{messages.hero.line1}</span>
+            <span>{messages.hero.line2}</span>
+            <span className={styles.titleHome}>{messages.hero.line3}</span>
           </h1>
 
-          <p className={styles.description}>{heroContent.description}</p>
+          <p className={styles.description}>{messages.hero.description}</p>
 
           <div className={styles.actions}>
             <div className={styles.actionGroup}>
@@ -46,41 +48,48 @@ export function CinematicHero() {
                 aria-disabled={!company.contact.whatsapp}
                 aria-describedby="hero-contact-note"
               >
-                <span>{heroContent.primaryAction}</span>
+                <span>{messages.hero.primary}</span>
                 <span aria-hidden="true">↗</span>
               </a>
               <span className={styles.actionNote} id="hero-contact-note">
                 {company.contact.whatsapp
-                  ? `Message ${company.contact.phone ?? "us"} on WhatsApp.`
-                  : "Contact details are not configured yet."}
+                  ? messages.hero.contactNote.replace("{phone}", company.contact.phone ?? "us")
+                  : messages.hero.missingContact}
               </span>
             </div>
             <button className={styles.actionText} type="button" onClick={replayReveal}>
-              {heroContent.secondaryAction}
+              {messages.hero.secondary}
               <span aria-hidden="true">↻</span>
             </button>
           </div>
 
           <div className={styles.copyFooter}>
-            <a className={styles.scrollCue} href="#hero-film" aria-label="View the architectural concept film">
+            <a className={styles.scrollCue} href="#hero-film" aria-label={messages.hero.scrollLabel}>
               <span className={styles.scrollMark} aria-hidden="true"><span /></span>
-              <span>{heroContent.scrollCue}</span>
+              <span>{messages.hero.scroll}</span>
             </a>
             <span className={styles.chapter}>01 <i aria-hidden="true">/</i> 02</span>
           </div>
         </div>
 
         <figure className={styles.visual} id="hero-film" aria-labelledby="hero-visual-caption">
-          <div className={styles.sceneStage}>
+          <div className={styles.sceneStage} lang={language}>
             <HeroMedia
               key={activeFilm.id}
               sources={activeFilm.sources}
               posterSrc={activeFilm.posterSrc}
               videoRef={videoRef}
               startAtSeconds={activeFilm.startAtSeconds}
-              alt={activeFilm.visualAlt}
+              alt={activeFilmIndex === 0 ? messages.hero.blueAlt : messages.hero.daylightAlt}
+              labels={{
+                fallback: messages.hero.mediaFallback,
+                play: messages.hero.play,
+                retry: messages.hero.retry,
+                replay: messages.hero.replay,
+                playLabel: messages.hero.playLabel,
+              }}
             />
-            <div className={styles.filmSelector} role="group" aria-label="Select an architectural concept film">
+            <div className={styles.filmSelector} role="group" aria-label={messages.hero.selectorLabel}>
               {heroMedia.films.map((film, index) => (
                 <button
                   key={film.id}
@@ -90,14 +99,14 @@ export function CinematicHero() {
                   onClick={() => setActiveFilmIndex(index)}
                 >
                   <span className={styles.filmNumber}>0{index + 1}</span>
-                  <span>{film.selectorLabel}</span>
+                  <span>{index === 0 ? messages.hero.blueHour : messages.hero.daylight}</span>
                 </button>
               ))}
             </div>
           </div>
           <figcaption className={styles.visualCaption} id="hero-visual-caption">
-            <span>{activeFilm.visualTitle}</span>
-            <span>{activeFilm.visualLabel}</span>
+            <span>{activeFilmIndex === 0 ? messages.hero.blueTitle : messages.hero.daylightTitle}</span>
+            <span>{messages.hero.conceptFilm}</span>
           </figcaption>
         </figure>
       </div>

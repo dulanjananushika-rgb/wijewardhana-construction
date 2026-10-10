@@ -15,6 +15,13 @@ type HeroMediaProps = {
   videoRef: RefObject<HTMLVideoElement | null>;
   startAtSeconds: number;
   alt: string;
+  labels: {
+    fallback: string;
+    play: string;
+    retry: string;
+    replay: string;
+    playLabel: string;
+  };
 };
 
 /** Responsive, reduced-motion-aware media surface for approved architectural films. */
@@ -24,6 +31,7 @@ export function HeroMedia({
   videoRef,
   startAtSeconds,
   alt,
+  labels,
 }: HeroMediaProps) {
   const [motionAllowed, setMotionAllowed] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -109,17 +117,17 @@ export function HeroMedia({
         {sources.map((source) => (
           <source key={`${source.type}:${source.src}`} src={source.src} type={source.type} />
         ))}
-        Your browser does not support embedded video. The architectural concept image remains available above.
+        {labels.fallback}
       </video>
       {!videoPlaying && !hasEnded && (
         <button
           className={styles.mediaPlay}
           type="button"
           onClick={() => void requestPlayback(true)}
-          aria-label="Play the architectural concept film"
+          aria-label={labels.playLabel}
         >
           <span aria-hidden="true">▶</span>
-          <span>{playbackBlocked ? "RETRY FILM" : hasEnded ? "REPLAY FILM" : "PLAY FILM"}</span>
+          <span>{playbackBlocked ? labels.retry : hasEnded ? labels.replay : labels.play}</span>
         </button>
       )}
       <span className={styles.mediaVignette} aria-hidden="true" />

@@ -1,19 +1,24 @@
+"use client";
+
 import { company } from "@/config/company";
+import { useLanguage } from "@/config/language";
 import styles from "./site-footer.module.css";
 
-const footerLinks = [
-  { label: "Overview", href: "#overview" },
-  { label: "The build", href: "#construction-story" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Principles", href: "#principles" },
-  { label: "Contact", href: "#contact" },
-];
-
 export function SiteFooter() {
+  const { language, messages } = useLanguage();
+  const text = messages.footer;
+  const navigationItems = messages.nav;
+  const footerLinks = [
+    { label: navigationItems.overview, href: "#overview" },
+    { label: navigationItems.build, href: "#construction-story" },
+    { label: navigationItems.about, href: "#about" },
+    { label: navigationItems.services, href: "#services" },
+    { label: navigationItems.process, href: "#process" },
+    { label: navigationItems.principles, href: "#principles" },
+    { label: navigationItems.contact, href: "#contact" },
+  ];
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} lang={language}>
       <div className={styles.inner}>
         <div className={styles.main}>
           <div className={styles.identity} data-reveal>
@@ -23,19 +28,19 @@ export function SiteFooter() {
               </svg>
               <span>{company.name}</span>
             </a>
-            <p>Thoughtful homes, from the first plan to the finishing details.</p>
+            <p>{text.tagline}</p>
           </div>
 
-          <nav className={styles.navigation} aria-label="Footer navigation" data-reveal>
-            <h2>EXPLORE</h2>
+          <nav className={styles.navigation} aria-label={navigationItems.mobile} data-reveal>
+            <h2>{text.explore}</h2>
             {footerLinks.map((link) => (
               <a key={link.href} href={link.href}>{link.label}</a>
             ))}
           </nav>
 
           <div className={styles.contact} data-reveal>
-            <h2>GET IN TOUCH</h2>
-            <p>{company.location}</p>
+            <h2>{text.getInTouch}</h2>
+            <p>{messages.common.location}</p>
             {company.contact.phone && (
               <a href={company.contact.phoneHref}>{company.contact.phone}</a>
             )}
@@ -48,8 +53,8 @@ export function SiteFooter() {
 
         <div className={styles.bottom} data-reveal>
           <p>© {new Date().getFullYear()} {company.name}</p>
-          <p>Architectural films and digital models are concept visualizations, not completed company projects.</p>
-          <a href="#top">BACK TO TOP <span aria-hidden="true">↑</span></a>
+          <p>{text.disclosure}</p>
+          <a href="#top">{messages.common.backToTop} <span aria-hidden="true">↑</span></a>
         </div>
       </div>
     </footer>

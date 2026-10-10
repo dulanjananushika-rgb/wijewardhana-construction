@@ -22,13 +22,13 @@ function SceneCamera() {
   return null;
 }
 
-function ConceptFallback({ activeStage }: { activeStage: number }) {
+function ConceptFallback({ activeStage, label }: { activeStage: number; label: string }) {
   return (
     <svg
       className={styles.staticFallback}
       viewBox="0 0 800 620"
       role="img"
-      aria-label="Static architectural illustration of the same house concept, shown at the selected construction stage"
+      aria-label={label}
     >
       <ellipse cx="404" cy="512" rx="315" ry="54" fill="#b6b1a7" opacity=".45" />
       <path d="m128 442 253-143 300 122-258 149z" fill="#c9c4b7" stroke="#aaa598" strokeWidth="2" />
@@ -45,9 +45,13 @@ function ConceptFallback({ activeStage }: { activeStage: number }) {
 export function ConstructionScene({
   activeStage,
   reducedMotion,
+  fallbackLabel,
+  sceneLabel,
 }: {
   activeStage: number;
   reducedMotion: boolean;
+  fallbackLabel: string;
+  sceneLabel: string;
 }) {
   return (
     <Canvas
@@ -57,8 +61,8 @@ export function ConstructionScene({
       shadows
       camera={{ position: [13.4, 10.5, 17.2], fov: 32, near: 0.1, far: 120 }}
       gl={{ antialias: true, powerPreference: "high-performance", toneMapping: ACESFilmicToneMapping }}
-      fallback={<ConceptFallback activeStage={activeStage} />}
-      aria-label="Scroll-driven three-dimensional architectural house model"
+      fallback={<ConceptFallback activeStage={activeStage} label={fallbackLabel} />}
+      aria-label={sceneLabel}
     >
       <color attach="background" args={[new Color("#d4d1c9")]} />
       <SceneCamera />

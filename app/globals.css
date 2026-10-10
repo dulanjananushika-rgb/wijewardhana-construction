@@ -187,6 +187,38 @@ body {
 .desktop-navigation a.is-active { color: var(--ink); }
 .desktop-navigation a.is-active::after { transform: scaleX(1); }
 
+.navbar-tools {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 1.2rem;
+}
+
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #85887f;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+}
+
+.language-switcher button {
+  min-width: 1.7rem;
+  min-height: 2rem;
+  border: 0;
+  padding: 0.2rem;
+  background: transparent;
+  color: #71766e;
+  font: inherit;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.language-switcher button[aria-pressed="true"] { color: var(--ink); font-weight: 700; }
+.language-switcher button:hover { color: var(--accent); }
+.language-switcher button:focus-visible { outline: 2px solid #7e543e; outline-offset: 2px; }
+
 .menu-toggle,
 .mobile-navigation { display: none; }
 
@@ -203,6 +235,7 @@ body {
   .brand-mark { width: 2.12rem; }
   .brand-name { font-size: 0.52rem; }
   .desktop-navigation { display: none; }
+  .navbar-tools { gap: 0.55rem; }
 
   .menu-toggle {
     display: grid;
@@ -260,9 +293,33 @@ body {
 @media (max-width: 360px) {
   :root { --page-gutter: 1rem; }
   .site-brand { gap: 0.5rem; }
+  .navbar-tools { gap: 0.35rem; }
   .brand-mark { width: 1.9rem; }
   .brand-name { font-size: 0.47rem; letter-spacing: 0.12em; }
 }
+
+html[lang="si"] body,
+html[lang="si"] h1,
+html[lang="si"] h2,
+html[lang="si"] h3,
+html[lang="si"] [class*="title"],
+html[lang="si"] [class*="eyebrow"],
+html[lang="si"] [class*="kicker"],
+html[lang="si"] .language-switcher {
+  font-family: var(--font-sinhala), var(--font-body), sans-serif;
+  letter-spacing: normal;
+}
+
+html[lang="si"] .desktop-navigation a,
+html[lang="si"] .mobile-nav-link,
+html[lang="si"] p,
+html[lang="si"] li,
+html[lang="si"] label { font-family: var(--font-sinhala), var(--font-body), sans-serif; letter-spacing: normal; line-height: 1.7; }
+
+html[lang="si"] h1,
+html[lang="si"] h2,
+html[lang="si"] h3,
+html[lang="si"] [class*="title"] { line-height: 1.25; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

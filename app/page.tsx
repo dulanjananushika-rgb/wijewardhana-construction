@@ -9,13 +9,14 @@ import { ContactSection } from "@/components/contact/contact-section";
 import { SiteFooter } from "@/components/site-footer";
 import { FloatingContact } from "@/components/floating-contact";
 import { ScrollMotion } from "@/components/scroll-motion";
+import { LanguageSkipLink } from "@/components/language-skip-link";
 
 export default function Home() {
   return (
     <div className="foundation-shell" id="top">
       <ScrollMotion>
         <SiteNavbar />
-        <a className="skip-link" href="#main-content">Skip to content</a>
+        <LanguageSkipLink />
         <main className="hero-shell" id="main-content" tabIndex={-1}>
           <CinematicHero />
           <ConstructionStory />

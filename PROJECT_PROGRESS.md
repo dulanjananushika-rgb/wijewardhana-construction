@@ -15,6 +15,16 @@
 
 Wijewardhana Construction — a premium, English-first construction company website for Sri Lanka, designed to grow in approved sections.
 
+## English / Sinhala language selector — current change
+
+- **Status:** Implemented for review. English remains the initial language; visitors can switch to Sinhala with the navbar control (`EN / සිං`). The selection is saved in local storage and restored on return.
+- **Coverage:** Hero and film controls, construction-story stages and accessible model labels, About, proposed Services, Process, Workmanship Principles, Contact form and WhatsApp message, navbar, skip link, floating WhatsApp control, and footer. The document `lang` and Sinhala font are updated with the selection.
+- **Implementation:** Added a typed bilingual message catalog and a small client-side language context. Existing section layout and content facts are preserved. Added a self-hosted Noto Sans Sinhala font subset through `next/font`; no runtime translation service or new package was added.
+- **Files changed:** `config/language.tsx`, `app/layout.tsx`, `app/page.tsx`, `app/globals.css`, `components/language-skip-link.tsx`, navbar, Hero/media, construction story/scene, About, Services, Process, Workmanship, Contact, Floating Contact, and Footer components.
+- **Checks:** `npm run lint`, `npm run typecheck`, and `npm run build` pass. `git diff --check` is included in final review.
+- **Preview review:** Local browser accessibility tree confirms the default English page and the `English / Sinhala` language control. The available browser interface did not provide a rendered screenshot or a way to operate the selector, so translated visual layout at desktop/mobile widths has not been directly inspected.
+- **Next:** Review the English default and use `සිං` in the fixed navbar to inspect Sinhala copy at desktop and mobile widths.
+
 ## Roadmap
 
 Creative rebuild is following a separate approval sequence. The earlier phase list below is retained as project history.

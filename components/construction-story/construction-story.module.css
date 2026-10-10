@@ -1,0 +1,338 @@
+.story {
+  --story-ink: #202720;
+  --story-muted: #71776e;
+  --story-clay: #95684f;
+  position: relative;
+  overflow: clip;
+  background: #e9e5dc;
+  color: var(--story-ink);
+}
+
+.inner {
+  width: min(calc(100% - clamp(2.5rem, 12.2vw, 12.5rem)), 1720px);
+  margin-inline: auto;
+  padding-block: clamp(4.5rem, 8vw, 8rem) clamp(4rem, 7vw, 7rem);
+}
+
+.topline {
+  display: flex;
+  min-height: 2.3rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid rgb(32 39 32 / 19%);
+  padding-top: 0.85rem;
+}
+
+.eyebrow,
+.toplineNote {
+  margin: 0;
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.13em;
+  line-height: 1.5;
+}
+
+.eyebrow { color: var(--story-muted); }
+.eyebrow span { color: var(--story-clay); }
+.toplineNote { color: #85887e; text-align: right; }
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.8fr);
+  align-items: end;
+  gap: clamp(2rem, 7vw, 8rem);
+  margin-block: clamp(2.6rem, 5.5vw, 5.6rem) clamp(2.7rem, 6vw, 5.4rem);
+}
+
+.title {
+  max-width: 11ch;
+  margin: 0;
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(3.8rem, 8.4vw, 9rem);
+  font-weight: 500;
+  letter-spacing: -0.095em;
+  line-height: 0.86;
+}
+
+.title em {
+  color: var(--story-clay);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.075em;
+}
+
+.description {
+  max-width: 29rem;
+  margin: 0 0 0.4rem;
+  color: #5c645c;
+  font-size: clamp(0.92rem, 1.1vw, 1.08rem);
+  line-height: 1.8;
+}
+
+.introCopy { display: grid; justify-items: start; gap: 1.1rem; }
+
+.scrollPrompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #8a725d;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.scrollPrompt i { font-size: 0.9rem; font-style: normal; }
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(19rem, 0.85fr);
+  align-items: start;
+  gap: clamp(2rem, 5.2vw, 6rem);
+}
+
+.sceneColumn {
+  position: sticky;
+  top: 6.2rem;
+  min-width: 0;
+}
+
+.sceneFrame {
+  position: relative;
+  height: min(66svh, 680px);
+  min-height: 410px;
+  overflow: hidden;
+  background: #d4d1c9;
+  isolation: isolate;
+}
+
+.sceneViewport,
+.sceneLoading {
+  position: absolute;
+  inset: 0;
+}
+
+.sceneLoading {
+  background:
+    radial-gradient(ellipse at 52% 52%, rgb(248 245 235 / 68%) 0%, rgb(220 216 207 / 22%) 42%, transparent 74%),
+    linear-gradient(145deg, #d8d5cc, #c9c8be);
+}
+
+.canvas,
+.sceneViewport canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.sceneTopline {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1.1rem;
+  left: 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  color: rgb(38 44 39 / 68%);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  pointer-events: none;
+}
+
+.sceneReadout {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  min-height: 6.15rem;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem clamp(1rem, 2.3vw, 2rem) 1.35rem;
+  background: linear-gradient(0deg, rgb(29 35 31 / 88%), rgb(29 35 31 / 62%) 68%, transparent);
+  color: #f2efe8;
+  pointer-events: none;
+}
+
+.readoutNumber {
+  color: #d3ae84;
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(2.6rem, 4.5vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+}
+
+.readoutCopy {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.readoutCopy span:first-child,
+.readoutType {
+  color: rgb(242 239 232 / 66%);
+  font-size: 0.48rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+}
+
+.readoutCopy span:last-child {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 1.55vw, 1.48rem);
+  font-style: italic;
+}
+
+.readoutType { align-self: end; padding-bottom: 0.2rem; text-align: right; }
+
+.progressTrack {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+  background: rgb(242 239 232 / 25%);
+}
+
+.progressTrack span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #d3ae84;
+  transform-origin: left center;
+  transition: transform 450ms cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.disclosure {
+  max-width: 36rem;
+  margin: 0.9rem 0 0;
+  color: #777d73;
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: 0.045em;
+  line-height: 1.7;
+}
+
+.stages { min-width: 0; }
+
+.stage {
+  position: relative;
+  display: flex;
+  min-height: 63svh;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid rgb(32 39 32 / 16%);
+  padding: clamp(2rem, 4vw, 4rem) clamp(0.5rem, 1vw, 1rem) clamp(2.5rem, 4vw, 4rem) 0;
+  opacity: 0.58;
+  transition: opacity 450ms ease;
+}
+
+.stage[data-active="true"] { opacity: 1; }
+
+.stageKicker {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1.7rem;
+  color: #777d73;
+  font-size: 0.53rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.stageKicker span:first-child { color: var(--story-clay); }
+
+.stage h3 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(2.25rem, 4.3vw, 4.7rem);
+  font-weight: 500;
+  letter-spacing: -0.085em;
+  line-height: 0.97;
+}
+
+.stageDescription {
+  max-width: 28rem;
+  margin: 1.25rem 0 0;
+  color: #626a61;
+  font-size: clamp(0.86rem, 0.95vw, 1rem);
+  line-height: 1.82;
+}
+
+.stageMarker {
+  align-self: flex-end;
+  margin-top: 2.2rem;
+  color: #a17b5e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  transition: transform 240ms ease;
+}
+
+.stage[data-active="true"] .stageMarker { transform: translate(3px, 3px); }
+
+.stage:focus-visible {
+  outline: 2px solid var(--story-clay);
+  outline-offset: 4px;
+}
+
+.staticFallback {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .inner { width: calc(100% - 3.5rem); }
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .title { max-width: 12ch; }
+  .description { max-width: 36rem; }
+  .introCopy { gap: 0.8rem; }
+  .storyGrid { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .sceneColumn { top: 5.1rem; z-index: 2; }
+  .sceneFrame { height: min(43svh, 400px); min-height: 290px; }
+  .stage { min-height: 48svh; padding-block: 2rem; }
+  .stage h3 { font-size: clamp(2.5rem, 7vw, 4.4rem); }
+  .stageDescription { max-width: 42rem; font-size: 0.94rem; }
+}
+
+@media (max-width: 520px) {
+  .inner { width: calc(100% - 2.5rem); padding-block: 3.7rem 4rem; }
+  .topline { align-items: flex-start; }
+  .eyebrow { font-size: 0.49rem; letter-spacing: 0.1em; }
+  .toplineNote { max-width: 9.8rem; font-size: 0.43rem; letter-spacing: 0.08em; }
+  .intro { gap: 0.9rem; margin-block: 2.6rem 1.7rem; }
+  .title { font-size: clamp(3.1rem, 13vw, 4.1rem); line-height: 0.9; }
+  .description { font-size: 0.84rem; line-height: 1.7; }
+  .scrollPrompt { font-size: 0.46rem; }
+  .storyGrid { gap: 1.2rem; }
+  .sceneColumn { top: 4.65rem; }
+  .sceneFrame { height: min(38svh, 330px); min-height: 260px; }
+  .sceneTopline { top: 0.72rem; right: 0.7rem; left: 0.7rem; font-size: 0.42rem; }
+  .sceneReadout { min-height: 5rem; grid-template-columns: auto 1fr; gap: 0.7rem; padding: 0.8rem 0.85rem 1rem; }
+  .readoutNumber { font-size: 2.55rem; }
+  .readoutCopy span:first-child { font-size: 0.42rem; }
+  .readoutCopy span:last-child { font-size: 1.07rem; }
+  .readoutType { display: none; }
+  .stage { min-height: 47svh; padding-right: 0; }
+  .stageKicker { margin-bottom: 1.3rem; font-size: 0.48rem; }
+  .stage h3 { font-size: clamp(2.35rem, 10.5vw, 3.55rem); }
+  .stageDescription { margin-top: 0.9rem; font-size: 0.83rem; line-height: 1.72; }
+  .stageMarker { margin-top: 1.4rem; }
+  .disclosure { font-size: 0.48rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressTrack span,
+  .stage,
+  .stageMarker { transition: none; }
+}

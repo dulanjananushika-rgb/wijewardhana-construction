@@ -1,0 +1,196 @@
+.about {
+  --about-ink: #eeeae0;
+  --about-muted: #a3a99f;
+  --about-line: rgb(238 234 224 / 22%);
+  position: relative;
+  overflow: clip;
+  background: #202720;
+  color: var(--about-ink);
+}
+
+.inner {
+  width: min(calc(100% - clamp(2.5rem, 12.2vw, 12.5rem)), 1720px);
+  margin-inline: auto;
+  padding-block: clamp(4.5rem, 8vw, 8rem) clamp(3rem, 5vw, 5rem);
+}
+
+.topline {
+  display: flex;
+  min-height: 2.3rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--about-line);
+  padding-top: 0.85rem;
+}
+
+.eyebrow,
+.location {
+  margin: 0;
+  color: var(--about-muted);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.13em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.eyebrow span { color: #c6a77c; }
+
+.editorial {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(20rem, 1.08fr);
+  align-items: center;
+  gap: clamp(2.5rem, 8vw, 9rem);
+  padding-block: clamp(3.8rem, 8vw, 8rem) clamp(3.5rem, 7vw, 7rem);
+}
+
+.copy { position: relative; z-index: 1; }
+
+.kicker {
+  margin: 0 0 1.6rem;
+  color: #c6a77c;
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+}
+
+.title {
+  max-width: 9ch;
+  margin: 0;
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(3.4rem, 7.4vw, 7.3rem);
+  font-weight: 450;
+  letter-spacing: -0.09em;
+  line-height: 0.91;
+}
+
+.title em {
+  color: #c6a77c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.075em;
+}
+
+.description {
+  max-width: 33rem;
+  margin: clamp(1.8rem, 3vw, 2.6rem) 0 0;
+  color: #c0c4bb;
+  font-size: clamp(0.92rem, 1.12vw, 1.06rem);
+  line-height: 1.9;
+}
+
+.signature {
+  margin: 2.5rem 0 0.25rem;
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  font-weight: 550;
+  letter-spacing: -0.025em;
+}
+
+.signatureNote {
+  color: var(--about-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.07em;
+}
+
+.figure {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 27rem;
+  align-content: center;
+  margin: 0;
+  border-block: 1px solid var(--about-line);
+  padding: 2.25rem clamp(0rem, 1vw, 1rem) 1.25rem;
+}
+
+.drawingLabel {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  color: var(--about-muted);
+  font-size: 0.52rem;
+  font-weight: 650;
+  letter-spacing: 0.15em;
+}
+
+.homeStudy { display: block; width: 100%; height: auto; overflow: visible; }
+.drawingFine { stroke: rgb(238 234 224 / 27%); stroke-width: 1; }
+.drawingStrong { stroke: #d8d0c1; stroke-width: 1.2; }
+.drawingAccent { stroke: #c6a77c; stroke-width: 1.25; }
+.drawingPoint { fill: #c6a77c; }
+
+.figure figcaption {
+  max-width: 24rem;
+  margin-top: 0.3rem;
+  color: var(--about-muted);
+  font-size: 0.68rem;
+  line-height: 1.6;
+}
+
+.figureIndex {
+  position: absolute;
+  right: 0;
+  bottom: 1.35rem;
+  color: var(--about-muted);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+.contactLine {
+  display: flex;
+  min-height: 4.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-top: 1px solid var(--about-line);
+  padding-top: 1.15rem;
+}
+
+.contactLine > p {
+  margin: 0;
+  color: var(--about-muted);
+  font-size: 0.67rem;
+  letter-spacing: 0.04em;
+}
+
+.contactActions { display: flex; flex-wrap: wrap; gap: clamp(1.2rem, 3vw, 3rem); }
+.contactActions a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 1.1rem;
+  color: var(--about-ink);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.contactActions a span:last-child { color: #c6a77c; transition: transform 180ms ease; }
+.contactActions a:hover { color: #c6a77c; }
+.contactActions a:hover span:last-child { transform: translate(2px, -2px); }
+.contactActions a:focus-visible { outline: 2px solid #c6a77c; outline-offset: 5px; }
+
+@media (max-width: 760px) {
+  .inner { width: min(calc(100% - 2.5rem), 40rem); }
+  .editorial { grid-template-columns: 1fr; gap: 3.2rem; padding-block: 4rem 3.4rem; }
+  .title { max-width: 10ch; font-size: clamp(3.6rem, 13vw, 6rem); }
+  .figure { min-height: auto; padding-top: 2.6rem; }
+  .figure figcaption { max-width: 19rem; }
+  .contactLine { align-items: flex-start; flex-direction: column; gap: 0.4rem; }
+  .contactActions { width: 100%; gap: 0.75rem 2rem; }
+}
+
+@media (max-width: 420px) {
+  .inner { width: calc(100% - 2rem); }
+  .location { max-width: 8rem; text-align: right; }
+  .title { font-size: clamp(3.15rem, 14.5vw, 4rem); }
+  .figureIndex { font-size: 0.45rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contactActions a, .contactActions a span:last-child { transition: none; }
+}

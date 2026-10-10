@@ -1,14 +1,15 @@
 # Project Progress
 
-## GitHub and Vercel preparation — current request
+## GitHub and Vercel deployment — current request
 
-- **Status:** Local cleanup and checks complete on `main` with an initial commit. No remote is configured yet.
-- **Architecture audit:** Existing files are already organized by App Router (`app/`), page section (`components/<section>/`), and editable content (`config/`). Preserving that structure avoids churn in approved sections.
-- **Preparation:** Added `npm run check` and `npm run verify`, documented the section/config/media structure and Vercel's default Next.js settings, and added cross-platform line-ending rules. No framework or runtime dependency additions were needed.
-- **Checks:** `npm run lint`, `npm run typecheck`, and `npm run build` pass. The restricted sandbox initially blocked SWC path canonicalization; rerunning the production build with host filesystem access passed and prerendered `/`.
-- **External requirements:** This shell has no `gh` or `vercel` CLI. The plugin registry reports GitHub installed, but its repository tools are not available in this chat; Vercel still reports not installed. The user's Chrome login is not exposed to the Codex in-app browser.
-- **Files changed:** `README.md`, `package.json`, `.gitattributes`, and this progress log.
-- **Next action:** Once GitHub repository access and Vercel deployment tools are available, create/use a private `wijewardhana-construction` repository, push `main`, deploy, and verify the returned production URL.
+- **Status:** Source pushed to `main` in `https://github.com/dulanjananushika-rgb/wijewardhana-construction`. Vercel project `wijewardhana-construction` is linked to that GitHub repository for automatic deployments on push.
+- **Architecture audit:** Existing App Router (`app/`), section components (`components/<section>/`), and editable content (`config/`) are retained. No approved site sections were redesigned for deployment setup.
+- **Preparation:** Added `npm run check` and `npm run verify`, documented the structure and deployment defaults, and added cross-platform line-ending rules. No app runtime dependencies were added. Vercel's local project metadata and environment files are ignored by Git.
+- **Checks:** `npm run lint`, `npm run typecheck`, and `npm run build` passed locally. Vercel's production build passed TypeScript and static prerender for `/`.
+- **Deployment:** Production deployment reached `READY` at `https://wijewardhana-construction.vercel.app` (deployment `BaXvX9ycYbWQMQjQRAqqTfgRnkH1`). Authenticated `vercel curl` returned the site's Next.js HTML. The project currently has Vercel Authentication enabled for `vercel.app` domains, so outside visitors are redirected to sign-in. Automatic disabling was rejected by the approval reviewer because it exposes production; awaiting the user's explicit approval to disable protection for this project only.
+- **Vercel MCP:** Official endpoint was added to Codex MCP configuration; its separate OAuth consent is still pending in the Codex browser tab. Vercel CLI deployment is independent and already succeeded.
+- **Files changed in the deployment setup:** `.gitignore`, `README.md`, `package.json`, `.gitattributes`, and this progress log. The Vercel project link file is intentionally ignored.
+- **Next action:** If approved, disable Vercel Authentication on this project, verify the public production URL, and record/push the final progress update. Otherwise leave production protected as configured.
 
 ## Project
 
